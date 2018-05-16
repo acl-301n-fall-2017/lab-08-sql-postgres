@@ -15,7 +15,7 @@ const app = express();
 // const conString = 'postgres://USER:PASSWORD@HOST:PORT/DBNAME';
 const conString = 'postgres://postgres:Alchemy@localhost:5432/kilovolt';
 
-// TODO: Our pg module has a Client constructor that accepts one argument: the conString we just defined.
+// TODOne: Our pg module has a Client constructor that accepts one argument: the conString we just defined.
 //       This is how it knows the URL and, for Windows and Linux users, our username and password for our
 //       database when client.connect is called on line 26. Thus, we need to pass our conString into our
 //       pg.Client() call.
@@ -79,7 +79,7 @@ app.post('/articles', function(request, response) {
 
 app.put('/articles/:id', function(request, response) {
   // COMMENT: What number(s) of the full-stack-diagram.png image correspond to the following line of code? Which method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
-  // ANSWER: Line 83 is referring to number 3 & 4 on the full-stack-diagram. Article.prototype.updateRecord is the method being used. READ is the UPDATE part. 
+  // ANSWER: Line 83 is referring to number 3 & 4 on the full-stack-diagram. Article.prototype.updateRecord is the method being used. UPDATE is the CRUD part. 
   client.query(
     `UPDATE articles
     SET
@@ -106,7 +106,7 @@ app.put('/articles/:id', function(request, response) {
 
 app.delete('/articles/:id', function(request, response) {
   // COMMENT: What number(s) of the full-stack-diagram.png image correspond to the following line of code? Which method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
-  // Put your response here...
+  // ANSWER:  Line 110 is referring to number 3 & 4 on the full-stack-diagram. Article.prototype.deleteRecord is the method being used. DELETE is the CRUD part.
   client.query(
     `DELETE FROM articles WHERE article_id=$1;`,
     [request.params.id]
@@ -121,7 +121,7 @@ app.delete('/articles/:id', function(request, response) {
 
 app.delete('/articles', function(request, response) {
   // COMMENT: What number(s) of the full-stack-diagram.png image correspond to the following line of code? Which method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
-  // Put your response here...
+  // ANSWER: Line 125 is referring to number 3 & 4 on the full-stack-diagram. Article.truncateTable is the method being used. DELETE is the CRUD part.
   client.query(
     'DELETE FROM articles;'
   )
@@ -134,7 +134,7 @@ app.delete('/articles', function(request, response) {
 });
 
 // COMMENT: What is this function invocation doing?
-// Put your response here...
+// ANSWER: loabDB() creates a table if none exists and loads articles into it. 
 loadDB();
 
 app.listen(PORT, function() {
@@ -146,7 +146,7 @@ app.listen(PORT, function() {
 ////////////////////////////////////////
 function loadArticles() {
   // COMMENT: What number(s) of the full-stack-diagram.png image correspond to the following line of code? Which method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
-  // Put your response here...
+  // ANSWER: Line 150 is referring to number 3 & 4 on the full-stack-diagram. Article.prototype.insertRecord is the method being used. CREATE is the CRUD part.
   client.query('SELECT COUNT(*) FROM articles')
   .then(result => {
     // REVIEW: result.rows is an array of objects that Postgres returns as a response to a query.
@@ -172,7 +172,7 @@ function loadArticles() {
 
 function loadDB() {
   // COMMENT: What number(s) of the full-stack-diagram.png image correspond to the following line of code? Which method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
-  // Put your response here...
+  // ANSWER: Line 176 is referring to number 3 & 4 on the full-stack-diagram. Article.loadAll is the method being used. CREATE is the CRUD part.
   client.query(`
     CREATE TABLE IF NOT EXISTS articles (
       article_id SERIAL PRIMARY KEY,
