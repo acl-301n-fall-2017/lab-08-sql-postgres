@@ -9,7 +9,7 @@
   "author": "Code Fellows",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.17.1",
+    "body-parser": "^1.18.3",
     "express": "^4.13.3",
     "pg": "^7.4.3"
   }
